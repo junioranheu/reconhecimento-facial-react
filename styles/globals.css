@@ -1,40 +1,40 @@
 :root {
   --cor-principal: #9900F0;
   --cor-principal-degrade: linear-gradient(to right top, #9900f0, #a020f0, #a731f0, #ae3ff0, #b44bf0);
-  }
+}
 
-  html, body {
-    padding: 0;
-    margin: 0;
-    font-family: 'GT';
+html, body {
+  padding: 0;
+  margin: 0;
+  font-family: 'GT';
 
-    /* background-color: red !important; */
-    width: 100vw;
-    height: 100vh;
+  /* background-color: red !important; */
+  width: 100vw;
+  height: 100vh;
 
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
-  * {
-    box-sizing: border-box;
-  }
+* {
+  box-sizing: border-box;
+}
 
-  .semHighlight {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
+.semHighlight {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
-  
+
 /* =-=-=-=-=-=-=-=-=-=-= Scroll =-=-=-=-=-=-=-=-=-=-= */
 ::-webkit-scrollbar {
   width: 10px;
@@ -79,3 +79,4 @@
   border-top-color: var(--cor-principal) !important;
   border-left-color: var(--cor-principal) !important
 }
+

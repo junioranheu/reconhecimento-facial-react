@@ -9,6 +9,12 @@
     flex-direction: column;
 }
 
+.transicaoBackground {
+    -webkit-transition: background-image 0.2s ease-in-out;
+    transition: background-image 0.2s ease-in-out;
+    transition: opacity 1s ease-in-out;
+}
+
 .divInfoConecteWebcam {
     /* background-color: pink; */
     text-align: center;
@@ -33,7 +39,7 @@
 }
 
 .divInfos {
-    background-image: var(--cor-principal-degrade);
+    background-color: rgba(153, 0, 240, 0.1);
 
     border-radius: 10px;
     /* height: fit-content; */

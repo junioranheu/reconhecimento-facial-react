@@ -5,8 +5,6 @@ import Botao from '../components/outros/botao';
 import Styles from '../styles/index.module.css';
 import EmojiAleatorio from '../utils/outros/emojiAleatorio';
 
-// https://arnavbansal-8232.medium.com/how-to-face-api-in-react-953cfc70d6d
-// https://justadudewhohacks.github.io/face-api.js/docs/index.html
 export default function Index() {
 
     const [emoji, setEmoji] = useState('');
@@ -157,20 +155,29 @@ export default function Index() {
 
         // Ajustar expressão;
         let expressao = 'Sem expressão definida 👻';
+        setBackgroundAtual(0);
+
         if (maxProp === 'angry') {
             expressao = (isHomem ? 'Está nervoso 😡' : 'Está nervosa 😡');
+            setBackgroundAtual(1);
         } else if (maxProp === 'disgusted') {
             expressao = 'Está com nojo 🤮';
+            setBackgroundAtual(2);
         } else if (maxProp === 'fearful') {
             expressao = 'Está com medo 😨';
+            setBackgroundAtual(3);
         } else if (maxProp === 'happy') {
             expressao = 'Está feliz 😀';
+            setBackgroundAtual(4);
         } else if (maxProp === 'neutral') {
-            expressao = (isHomem ? 'Está neutro 😐' : 'Está neutra 😐');
+            expressao = (isHomem ? 'Está neutro 😶' : 'Está neutra 😶');
+            setBackgroundAtual(5);
         } else if (maxProp === 'sad') {
             expressao = 'Está triste 😞';
+            setBackgroundAtual(6);
         } else if (maxProp === 'surprised') {
             expressao = (isHomem ? 'Está surpreso 😯' : 'Está surpresa 😯');
+            setBackgroundAtual(7);
         }
 
         // Se o maxValue for menor ou igual a xxx, deve-se colocar uma frase no meio;
@@ -190,8 +197,21 @@ export default function Index() {
         setExpressaoAtual({ expre: expressao, pontos: maxValue });
     }
 
+    const [backgrounds] = useState([
+        'linear-gradient(to left top, #9900f0, #7e09c1, #630e95, #490e6b, #300c44)', // 0 - Sem expressão definida - Roxo (padrão);
+        'linear-gradient(to left top, #9d2f2f, #b62d2d, #ce2a2b, #e72526, #ff1f1f)', // 1 - Nervoso - Vermelho;
+        'linear-gradient(to left top, #98e588, #78c168, #599f49, #3a7e2a, #185e09)', // 2 - Nojo - Verde;
+        'linear-gradient(to left top, #050407, #0a0512, #0f0519, #12061f, #150625)', // 3 - Medo - Azul super escuro (quase preto);
+        'linear-gradient(to left top, #e9ff00, #ffd817, #ffb342, #ff9364, #ff7e7e)', // 4 - Feliz - Amarelo alaranjado;
+        'linear-gradient(to left top, #ffffff, #e1dcf2, #c4bae4, #a999d6, #8e78c6)', // 5 - Neutro - Branco;
+        'linear-gradient(to left top, #0b0116, #221249, #391883, #5617c0, #7900ff)', // 6 - Triste - Azul escuro;
+        'linear-gradient(to left top, #ffaa00, #edaa32, #dca94c, #cca862, #bca577)', // 7 - Surpresa - Laranja;
+    ]);
+
+    const [backgroundAtual, setBackgroundAtual] = useState(0);
+
     return (
-        <section className={Styles.container}>
+        <section className={`${Styles.container} ${Styles.transicaoBackground}`} style={{ background: backgrounds[backgroundAtual]}}>
             <div>
                 {
                     captureVideo && modelsLoaded ? (
