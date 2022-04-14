@@ -1,7 +1,11 @@
+import Sidebar from '../components/outros/sidebar'
 import '../styles/globals.css'
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+export default function App({ Component, pageProps }) {
+  return (
+    <section className='main semHighlight'>
+      <Sidebar />
+      <Component {...pageProps} />
+    </section>
+  )
 }
-
-export default MyApp

@@ -1,0 +1,76 @@
+.container {
+    /* background-color: pink; */
+    height: 100vh;
+    width: 100vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* =-=-=-=-=-=-=-=-=-=-= Sessão do vídeo =-=-=-=-=-=-=-=-=-=-= */
+.sessaoWebcam {
+    background-color: pink;
+    margin-top: 1rem;
+}
+
+.divWebcam{
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+}
+
+.sessaoWebcam video {
+    border-radius: 10px;
+}
+
+.sessaoWebcam canvas {
+    position: absolute;
+}
+
+/* =-=-=-=-=-=-=-=-=-=-= Botão =-=-=-=-=-=-=-=-=-=-= */
+.botao {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    height: 40px;
+    margin: 8px 0 12px;
+    padding: 8px 48px;
+    border: none;
+    background: var(--branco);
+    border-radius: 500px;
+    color: var(--preto);
+    cursor: pointer;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 180px;
+    white-space: nowrap;
+    outline: none;
+    place-content: center;
+    place-items: center;
+    -webkit-transition: opacity .2s;
+    transition: opacity .2s;
+    text-transform: uppercase;
+}
+
+.botaoCustom button {
+    background-color: #9900F0;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+.botao:hover {
+    transform: scale(1.05);
+    transition: all 0.3s;
+}
+
+.botao:disabled {
+    cursor: not-allowed;
+    filter: brightness(50%);
+}
+
+.sideBarRemoverSeWidthPequeno {
+    display: block;
+}

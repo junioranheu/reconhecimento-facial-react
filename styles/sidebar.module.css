@@ -1,0 +1,98 @@
+/* =-=-=-=-=-=-=-=-=-=-= Side =-=-=-=-=-=-=-=-=-=-= */
+.side {
+    /* background-color: pink; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+    width: 50px;
+    border-right: 1px dashed rgba(0, 0, 0, 0.3);
+    color: rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.0875rem;
+    font-size: 10px;
+    transition: all 0.3s cubic-bezier(0.05, 0.69, 0.14, 1);
+}
+
+.side:hover {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.side .side__inner {
+    position: relative;
+    height: 100%;
+    white-space: nowrap;
+}
+
+.side a {
+    color: inherit;
+    word-spacing: 0;
+    transition: all 0.3s cubic-bezier(0.05, 0.69, 0.14, 1);
+}
+
+.side .top,
+.side .bottom {
+    position: absolute;
+    left: 0;
+    transform: rotate(-90deg) perspective(1px);
+    transform-origin: 50px 50px;
+    height: 50px;
+    line-height: 50px;
+    white-space: nowrap;
+    word-spacing: 0.5rem;
+}
+
+.side .top {
+    /* background-color: pink; */
+    display: flex;
+    gap: 15px;
+
+    top: 1rem;
+    text-align: right;
+    color: black;
+}
+
+.side .top .bandeira {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+.side .bottom {
+    top: auto;
+    bottom: 75px;
+}
+
+.side .bottom a:nth-child(n+2) {
+    /* background-color: pink; */
+    margin-left: 1rem;
+}
+
+.side .bottom:hover a {
+    color: rgba(0, 0, 0, 0.2);
+}
+
+.side .bottom:hover a:hover {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=- Media queries =-=-=-=-=-=-=-=-=-=-=-=- */
+@media (max-width:1505px) {}
+
+/* hi-res laptops and desktops */
+@media (max-width:1281px) {}
+
+/* big landscape tablets, laptops, and desktops */
+@media (max-width:1025px) {}
+
+/* tablet, landscape iPad, lo-res laptops ands desktops */
+@media (max-width:801px) {}
+
+/* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+@media (max-width:600px) {}
+
+/* smartphones, Android phones, landscape iPhone */
+@media (max-width:480px) {}
