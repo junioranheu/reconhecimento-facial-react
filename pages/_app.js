@@ -1,3 +1,4 @@
+import 'nprogress/nprogress.css';
 import React from 'react';
 import Sidebar from '../components/outros/sidebar';
 import '../fonts/GTWalsheim.css';

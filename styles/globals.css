@@ -33,3 +33,49 @@
     -ms-user-select: none;
     user-select: none;
   }
+
+  
+/* =-=-=-=-=-=-=-=-=-=-= Scroll =-=-=-=-=-=-=-=-=-=-= */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: black;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6b6e70;
+  border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #949799;
+}
+
+/* =-=-=-=-=-=-=-=-=-=-= nprogress =-=-=-=-=-=-=-=-=-=-= */
+#nprogress .bar {
+  background: var(--cor-principal) !important;
+  height: 4px !important
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px var(--cor-principal), 0 0 5px var(--cor-principal) !important
+}
+
+#nprogress .spinner-icon {
+  border-top-color: var(--cor-principal) !important;
+  border-left-color: var(--cor-principal) !important
+}
+
+#nprogress .bar, .peg {
+  background: var(--cor-principal) !important;
+  box-shadow: none !important;
+  height: 3px !important
+}
+
+#nprogress .spinner-icon {
+  border-top-color: var(--cor-principal) !important;
+  border-left-color: var(--cor-principal) !important
+}

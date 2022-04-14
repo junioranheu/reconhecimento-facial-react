@@ -1,4 +1,5 @@
 import * as faceapi from 'face-api.js';
+import NProgress from 'nprogress';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import Botao from '../components/outros/botao';
 import Styles from '../styles/index.module.css';
@@ -44,16 +45,19 @@ export default function Index() {
     }, []);
 
     function startVideo() {
+        NProgress.start();
         setCaptureVideo(true);
+
         navigator.mediaDevices
             .getUserMedia({ video: { width: 300 } })
             .then(stream => {
                 let video = videoRef.current;
                 video.srcObject = stream;
                 video.play();
+                NProgress.done();
             })
             .catch(err => {
-                console.error("error:", err);
+                console.error('Erro:', err);
             });
     }
 
@@ -84,7 +88,7 @@ export default function Index() {
                     // canvasRef && (
                     //     resizedDetections.forEach(detection => {
                     //         const box = detection.detection.box
-                    //         const drawBox = new faceapi.draw.DrawBox(box, { label: Math.round(detection.age) + " year old " + detection.gender })
+                    //         const drawBox = new faceapi.draw.DrawBox(box, { label: Math.round(detection.age) + ' year old ' + detection.gender })
                     //         drawBox.draw(canvasRef.current);
                     //     })
                     // );
