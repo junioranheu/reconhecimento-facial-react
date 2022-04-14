@@ -225,7 +225,7 @@ export default function Index() {
 
     return (
         <Fragment>
-            <BackgroundEfeito captureVideo={captureVideo} />
+            <BackgroundEfeito captureVideo={false} />
 
             <section className={`${Styles.container} ${Styles.transicaoBackground}`} style={{ backgroundColor: backgrounds[backgroundAtual] }}>
                 {isErroSemCamera === true && (

@@ -1,7 +1,7 @@
 .container {
-    /* background-color: pink; */
-    height: 100vh;
+    /* background-color: pink !important; */
     width: 100vw;
+    height: 100vh;
 
     display: flex;
     justify-content: center;
