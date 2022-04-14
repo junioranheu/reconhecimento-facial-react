@@ -81,15 +81,15 @@ export default function Index() {
                     const resizedDetections = faceapi.resizeResults(detections, displaySize);
                     canvasRef && canvasRef.current && canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
                     canvasRef && canvasRef.current && faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
+
+                    const options = { boxColor: '#9900F0', label: 'Oi, né?' };
+                    const box = resizedDetections.detection.box;
+                    // const drawBox = new faceapi.draw.DrawBox(box, { label: Math.round(resizedDetections.age) + ' year old ' + resizedDetections.gender });
+                    const drawBox = new faceapi.draw.DrawBox(box, options);
+                    drawBox.draw(canvasRef.current);
+
                     // canvasRef && canvasRef.current && faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
                     // canvasRef && canvasRef.current && faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections);
-                    // canvasRef && (
-                    //     resizedDetections.forEach(detection => {
-                    //         const box = detection.detection.box
-                    //         const drawBox = new faceapi.draw.DrawBox(box, { label: Math.round(detection.age) + ' year old ' + detection.gender })
-                    //         drawBox.draw(canvasRef.current);
-                    //     })
-                    // );
                 }
             }
         }, 1000)
@@ -126,7 +126,7 @@ export default function Index() {
                 msg = (isHomem ? 'um senhor de idade' : 'uma senhora de idade');
             }
 
-            msg = `Você é ${msg}`;
+            msg = `E é ${msg}`;
         }
 
         setMsgGeneroIdade(msg);
@@ -154,43 +154,43 @@ export default function Index() {
         }
 
         // Ajustar expressão;
-        let expressao = 'Sem expressão definida 👻';
+        let expressao = 'Sem expressão definida<br/>Você tá aí mesmo? 👻';
         setBackgroundAtual(0);
 
         if (maxProp === 'angry') {
-            expressao = (isHomem ? 'Está nervoso 😡' : 'Está nervosa 😡');
+            expressao = (isHomem ? 'Você está nervoso 😡' : 'Está nervosa 😡');
             setBackgroundAtual(1);
         } else if (maxProp === 'disgusted') {
-            expressao = 'Está com nojo 🤮';
+            expressao = 'Você está com nojo 🤮';
             setBackgroundAtual(2);
         } else if (maxProp === 'fearful') {
-            expressao = 'Está com medo 😨';
+            expressao = 'Você está com medo 😨';
             setBackgroundAtual(3);
         } else if (maxProp === 'happy') {
-            expressao = 'Está feliz 😀';
+            expressao = 'Você está feliz 😀';
             setBackgroundAtual(4);
         } else if (maxProp === 'neutral') {
-            expressao = (isHomem ? 'Está neutro 😶' : 'Está neutra 😶');
+            expressao = (isHomem ? 'Você está neutro 😶' : 'Está neutra 😶');
             setBackgroundAtual(5);
         } else if (maxProp === 'sad') {
-            expressao = 'Está triste 😞';
+            expressao = 'Você está triste 😞';
             setBackgroundAtual(6);
         } else if (maxProp === 'surprised') {
-            expressao = (isHomem ? 'Está surpreso 😯' : 'Está surpresa 😯');
+            expressao = (isHomem ? 'Você está surpreso 😯' : 'Está surpresa 😯');
             setBackgroundAtual(7);
         }
 
         // Se o maxValue for menor ou igual a xxx, deve-se colocar uma frase no meio;
         if (maxValue <= 0.8 && !expressao.includes('neutro')) {
-            if (expressao.includes('Está')) {
-                expressao = expressao.replace('Está', 'Está um pouco');
+            if (expressao.includes('está')) {
+                expressao = expressao.replace('está', 'está um pouco');
             }
         }
 
         // Se o maxValue for maior ou igual a xxx, deve-se colocar uma frase no meio;
         if (maxValue >= 0.999) {
-            if (expressao.includes('Está') && !expressao.includes('neutro')) {
-                expressao = expressao.replace('Está', 'Está muito');
+            if (expressao.includes('está') && !expressao.includes('neutro')) {
+                expressao = expressao.replace('está', 'está muito');
             }
         }
 
@@ -211,7 +211,7 @@ export default function Index() {
     const [backgroundAtual, setBackgroundAtual] = useState(0);
 
     return (
-        <section className={`${Styles.container} ${Styles.transicaoBackground}`} style={{ background: backgrounds[backgroundAtual]}}>
+        <section className={`${Styles.container} ${Styles.transicaoBackground}`} style={{ background: backgrounds[backgroundAtual] }}>
             <div>
                 {
                     captureVideo && modelsLoaded ? (
@@ -238,7 +238,7 @@ export default function Index() {
 
                             {expressaoAtual.expre && (
                                 <div className={Styles.divInfos}>
-                                    <span>{expressaoAtual.expre}</span>
+                                    <span dangerouslySetInnerHTML={{ __html: expressaoAtual.expre }}></span>
                                     {/* <span>{expressaoAtual.pontos}</span> */}
                                     <span>{msgGeneroIdade}</span>
                                 </div>
