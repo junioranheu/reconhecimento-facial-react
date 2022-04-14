@@ -11,7 +11,7 @@ export default function Sidebar() {
 
                 <div className={Styles.bottom}>
                     <a href='https://github.com/junioranheu' target='_blank' rel='noreferrer'>Github</a>
-                    <a href='https://www.linkedin.com/in/junioranheu/' target='_blank' rel='noreferrer'>Linkedin</a>
+                    {/* <a href='https://www.linkedin.com/in/junioranheu/' target='_blank' rel='noreferrer'>Linkedin</a> */}
                     <a href='https://github.com/justadudewhohacks/face-api.js/' target='_blank' rel='noreferrer'>Face API</a>
                 </div>
             </div>

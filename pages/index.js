@@ -66,9 +66,9 @@ export default function Index() {
                 const displaySize = { width: videoWidth, height: videoHeight }
 
                 faceapi.matchDimensions(canvasRef.current, displaySize);
-                // const detections = await faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions();
                 // const detections = await faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions().withAgeAndGender();
-                const detections = await faceapi.detectSingleFace(videoRef.current, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions().withAgeAndGender();
+                // const detections = await faceapi.detectSingleFace(videoRef.current, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions().withAgeAndGender();
+                const detections = await faceapi.detectSingleFace(videoRef.current, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions().withAgeAndGender();
                 // console.log(detections);
 
                 // Pegar e setar mensagem de gênero e idade, e expressão atual;
@@ -82,13 +82,13 @@ export default function Index() {
                     canvasRef && canvasRef.current && canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
                     canvasRef && canvasRef.current && faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
 
-                    const options = { boxColor: '#9900F0', label: 'Oi, né?' };
+                    const options = { boxColor: '#9900F0', label: 'Detectando expressão facial' };
                     const box = resizedDetections.detection.box;
                     // const drawBox = new faceapi.draw.DrawBox(box, { label: Math.round(resizedDetections.age) + ' year old ' + resizedDetections.gender });
                     const drawBox = new faceapi.draw.DrawBox(box, options);
                     drawBox.draw(canvasRef.current);
 
-                    // canvasRef && canvasRef.current && faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
+                    canvasRef && canvasRef.current && faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
                     // canvasRef && canvasRef.current && faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections);
                 }
             }
@@ -198,20 +198,30 @@ export default function Index() {
     }
 
     const [backgrounds] = useState([
-        'linear-gradient(to left top, #9900f0, #7e09c1, #630e95, #490e6b, #300c44)', // 0 - Sem expressão definida - Roxo (padrão);
-        'linear-gradient(to left top, #9d2f2f, #b62d2d, #ce2a2b, #e72526, #ff1f1f)', // 1 - Nervoso - Vermelho;
-        'linear-gradient(to left top, #98e588, #78c168, #599f49, #3a7e2a, #185e09)', // 2 - Nojo - Verde;
-        'linear-gradient(to left top, #050407, #0a0512, #0f0519, #12061f, #150625)', // 3 - Medo - Azul super escuro (quase preto);
-        'linear-gradient(to left top, #e9ff00, #ffd817, #ffb342, #ff9364, #ff7e7e)', // 4 - Feliz - Amarelo alaranjado;
-        'linear-gradient(to left top, #ffffff, #e1dcf2, #c4bae4, #a999d6, #8e78c6)', // 5 - Neutro - Branco;
-        'linear-gradient(to left top, #0b0116, #221249, #391883, #5617c0, #7900ff)', // 6 - Triste - Azul escuro;
-        'linear-gradient(to left top, #ffaa00, #edaa32, #dca94c, #cca862, #bca577)', // 7 - Surpresa - Laranja;
+        // 'linear-gradient(to left top, #9900f0, #7e09c1, #630e95, #490e6b, #300c44)', // 0 - Sem expressão definida - Roxo (padrão);
+        // 'linear-gradient(to left top, #9d2f2f, #b62d2d, #ce2a2b, #e72526, #ff1f1f)', // 1 - Nervoso - Vermelho;
+        // 'linear-gradient(to left top, #98e588, #78c168, #599f49, #3a7e2a, #185e09)', // 2 - Nojo - Verde;
+        // 'linear-gradient(to left top, #050407, #0a0512, #0f0519, #12061f, #150625)', // 3 - Medo - Azul super escuro (quase preto);
+        // 'linear-gradient(to left top, #e9ff00, #ffd817, #ffb342, #ff9364, #ff7e7e)', // 4 - Feliz - Amarelo alaranjado;
+        // // 'linear-gradient(to left top, #ffffff, #e1dcf2, #c4bae4, #a999d6, #8e78c6)', // 5 - Neutro - Branco;
+        // 'linear-gradient(to left top, #9900f0, #7e09c1, #630e95, #490e6b, #300c44)', // 5 - Neutro - Igual ao Sem expressão definida - Roxo (padrão);
+        // 'linear-gradient(to left top, #0b0116, #221249, #391883, #5617c0, #7900ff)', // 6 - Triste - Azul escuro;
+        // 'linear-gradient(to left top, #e995fb, #ff93c9, #ffac93, #ffd673, #efff83)', // 7 - Surpresa - Misturado de roxo e amarelo;
+
+        '#9900F0', // 0 - Sem expressão definida - Roxo (padrão);
+        '#A62525', // 1 - Nervoso - Vermelho;
+        '#3E9057', // 2 - Nojo - Verde;
+        '#0E074F', // 3 - Medo - Azul super escuro (quase preto);
+        '#F6D710', // 4 - Feliz - Amarelo alaranjado;
+        '#9900F0', // 5 - Neutro - Igual ao Sem expressão definida - Roxo (padrão);
+        '#2B1DAE', // 6 - Triste - Azul escuro;
+        '#FF51FF', // 7 - Surpresa - Rosa;
     ]);
 
     const [backgroundAtual, setBackgroundAtual] = useState(0);
 
     return (
-        <section className={`${Styles.container} ${Styles.transicaoBackground}`} style={{ background: backgrounds[backgroundAtual] }}>
+        <section className={`${Styles.container} ${Styles.transicaoBackground}`} style={{ backgroundColor: backgrounds[backgroundAtual] }}>
             <div>
                 {
                     captureVideo && modelsLoaded ? (
@@ -246,8 +256,8 @@ export default function Index() {
                         </section>
                     )
                 ) : (
-                    <div className={Styles.divInfoConecteWebcam}>
-                        <h1>Conecte sua webcam e<br />clique no botão acima para iniciar {emoji}</h1>
+                    <div className={`${Styles.divInfos} ${Styles.divInfosAlt}`}>
+                        <span>Conecte sua webcam e<br />clique no botão acima para iniciar {emoji}</span>
                     </div>
                 )
             }

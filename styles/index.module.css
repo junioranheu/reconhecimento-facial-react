@@ -10,14 +10,9 @@
 }
 
 .transicaoBackground {
-    -webkit-transition: background-image 0.2s ease-in-out;
-    transition: background-image 0.2s ease-in-out;
-    transition: opacity 1s ease-in-out;
-}
-
-.divInfoConecteWebcam {
-    /* background-color: pink; */
-    text-align: center;
+    -webkit-transition: background-color 800ms linear;
+    -ms-transition: background-color 800ms linear;
+    transition: background-color 800ms linear;
 }
 
 /* =-=-=-=-=-=-=-=-=-=-= Sessão do vídeo =-=-=-=-=-=-=-=-=-=-= */
@@ -39,24 +34,38 @@
 }
 
 .divInfos {
-    background-color: rgba(153, 0, 240, 0.1);
+    background-color: rgba(140, 10, 240, 0.1);
 
     border-radius: 10px;
-    /* height: fit-content; */
     height: 100px;
-    width: 100%;
 
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    padding: 60px;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, .1);
 }
 
 .divInfos span {
     /* background-color: pink; */
     color: #fff;
     font-size: 1.8rem;
+    font-weight: 500;
+    text-shadow: -1px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.divInfosAlt {
+    margin-top: 1rem;
+    box-shadow: none;
+}
+
+.divInfosAlt span {
+    /* background-color: pink; */
+    color: #fff;
+    font-size: 1.5rem;
     font-weight: 500;
     text-shadow: -1px 2px 2px rgba(0, 0, 0, 0.2);
 }
@@ -76,7 +85,7 @@
     cursor: pointer;
     font: inherit;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 180px;
     white-space: nowrap;
     outline: none;

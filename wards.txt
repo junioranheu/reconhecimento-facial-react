@@ -2,6 +2,3 @@
 https://arnavbansal-8232.medium.com/how-to-face-api-in-react-953cfc70d6d
 https://justadudewhohacks.github.io/face-api.js/docs/index.html
 
---
-Ajustar quadradinho da detecção facial;
-Mudar a cor do background conforme as expressões;
