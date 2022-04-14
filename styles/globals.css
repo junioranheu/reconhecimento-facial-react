@@ -12,7 +12,7 @@ html, body {
   width: 100vw;
   height: 100vh;
 
-  overflow-y: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
 }
 
@@ -33,7 +33,6 @@ a {
   -ms-user-select: none;
   user-select: none;
 }
-
 
 /* =-=-=-=-=-=-=-=-=-=-= Scroll =-=-=-=-=-=-=-=-=-=-= */
 ::-webkit-scrollbar {
@@ -56,27 +55,27 @@ a {
 
 /* =-=-=-=-=-=-=-=-=-=-= nprogress =-=-=-=-=-=-=-=-=-=-= */
 #nprogress .bar {
-  background: var(--cor-principal) !important;
-  height: 4px !important
+  background: rgba(255, 255, 255, 0.5) !important;
+  height: 4px !important;
 }
 
 #nprogress .peg {
-  box-shadow: 0 0 10px var(--cor-principal), 0 0 5px var(--cor-principal) !important
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 5px rgba(255, 255, 255, 0.5) !important
 }
 
 #nprogress .spinner-icon {
-  border-top-color: var(--cor-principal) !important;
-  border-left-color: var(--cor-principal) !important
+  border-top-color: rgba(255, 255, 255, 0.5) !important;
+  border-left-color: rgba(255, 255, 255, 0.5) !important
 }
 
 #nprogress .bar, .peg {
-  background: var(--cor-principal) !important;
+  background: rgba(255, 255, 255, 0.5) !important;
   box-shadow: none !important;
   height: 3px !important
 }
 
 #nprogress .spinner-icon {
-  border-top-color: var(--cor-principal) !important;
-  border-left-color: var(--cor-principal) !important
+  border-top-color: rgba(255, 255, 255, 0.5) !important;
+  border-left-color: rgba(255, 255, 255, 0.5) !important
 }
 

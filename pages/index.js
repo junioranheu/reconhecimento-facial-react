@@ -1,6 +1,7 @@
 import * as faceapi from 'face-api.js';
 import NProgress from 'nprogress';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
+import BackgroundEfeito from '../components/outros/backgroundEfeito';
 import Botao from '../components/outros/botao';
 import Styles from '../styles/index.module.css';
 import EmojiAleatorio from '../utils/outros/emojiAleatorio';
@@ -221,46 +222,50 @@ export default function Index() {
     const [backgroundAtual, setBackgroundAtual] = useState(0);
 
     return (
-        <section className={`${Styles.container} ${Styles.transicaoBackground}`} style={{ backgroundColor: backgrounds[backgroundAtual] }}>
-            <div>
+        <Fragment>
+            <BackgroundEfeito captureVideo={captureVideo} />
+
+            <section className={`${Styles.container} ${Styles.transicaoBackground}`} style={{ backgroundColor: backgrounds[backgroundAtual] }}>
+                <div>
+                    {
+                        captureVideo && modelsLoaded ? (
+                            // <div className={Styles.botaoCustom} onClick={() => closeWebcam()}>
+                            //     <Botao texto={'Desativar detector de expressões'} url={''} isNovaAba={false} Svg='' />
+                            // </div>
+                            <Fragment></Fragment>
+                        ) : (
+                            <div className={Styles.botaoCustom} onClick={() => startVideo()}>
+                                <Botao texto={'Ativar detector de expressões'} url={''} isNovaAba={false} Svg='' />
+                            </div>
+                        )
+                    }
+                </div>
+
                 {
-                    captureVideo && modelsLoaded ? (
-                        // <div className={Styles.botaoCustom} onClick={() => closeWebcam()}>
-                        //     <Botao texto={'Desativar detector de expressões'} url={''} isNovaAba={false} Svg='' />
-                        // </div>
-                        <Fragment></Fragment>
+                    captureVideo ? (
+                        modelsLoaded && (
+                            <section className={Styles.sessaoWebcam}>
+                                <div className={Styles.divWebcam}>
+                                    <video ref={videoRef} height={videoHeight} width={videoWidth} onPlay={handleVideoOnPlay} />
+                                    <canvas ref={canvasRef} />
+                                </div>
+
+                                {expressaoAtual.expre && (
+                                    <div className={Styles.divInfos}>
+                                        <span dangerouslySetInnerHTML={{ __html: expressaoAtual.expre }}></span>
+                                        {/* <span>{expressaoAtual.pontos}</span> */}
+                                        <span>{msgGeneroIdade}</span>
+                                    </div>
+                                )}
+                            </section>
+                        )
                     ) : (
-                        <div className={Styles.botaoCustom} onClick={() => startVideo()}>
-                            <Botao texto={'Ativar detector de expressões'} url={''} isNovaAba={false} Svg='' />
+                        <div className={`${Styles.divInfos} ${Styles.divInfosAlt}`}>
+                            <span>Conecte sua webcam e<br />clique no botão acima para iniciar {emoji}</span>
                         </div>
                     )
                 }
-            </div>
-
-            {
-                captureVideo ? (
-                    modelsLoaded && (
-                        <section className={Styles.sessaoWebcam}>
-                            <div className={Styles.divWebcam}>
-                                <video ref={videoRef} height={videoHeight} width={videoWidth} onPlay={handleVideoOnPlay} />
-                                <canvas ref={canvasRef} />
-                            </div>
-
-                            {expressaoAtual.expre && (
-                                <div className={Styles.divInfos}>
-                                    <span dangerouslySetInnerHTML={{ __html: expressaoAtual.expre }}></span>
-                                    {/* <span>{expressaoAtual.pontos}</span> */}
-                                    <span>{msgGeneroIdade}</span>
-                                </div>
-                            )}
-                        </section>
-                    )
-                ) : (
-                    <div className={`${Styles.divInfos} ${Styles.divInfosAlt}`}>
-                        <span>Conecte sua webcam e<br />clique no botão acima para iniciar {emoji}</span>
-                    </div>
-                )
-            }
-        </section>
+            </section>
+        </Fragment>
     );
 }
