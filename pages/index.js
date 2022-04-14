@@ -43,6 +43,7 @@ export default function Index() {
         loadModels();
     }, []);
 
+    const [isErroSemCamera, setIsErroSemCamera] = useState(false);
     function startVideo() {
         NProgress.start();
         setCaptureVideo(true);
@@ -56,7 +57,8 @@ export default function Index() {
                 NProgress.done();
             })
             .catch(err => {
-                console.error('Erro:', err);
+                setIsErroSemCamera(true);
+                console.error('Houve um erro:', err);
             });
     }
 
@@ -226,20 +228,24 @@ export default function Index() {
             <BackgroundEfeito captureVideo={captureVideo} />
 
             <section className={`${Styles.container} ${Styles.transicaoBackground}`} style={{ backgroundColor: backgrounds[backgroundAtual] }}>
-                <div>
-                    {
-                        captureVideo && modelsLoaded ? (
-                            // <div className={Styles.botaoCustom} onClick={() => closeWebcam()}>
-                            //     <Botao texto={'Desativar detector de expressões'} url={''} isNovaAba={false} Svg='' />
-                            // </div>
-                            <Fragment></Fragment>
-                        ) : (
-                            <div className={Styles.botaoCustom} onClick={() => startVideo()}>
-                                <Botao texto={'Ativar detector de expressões'} url={''} isNovaAba={false} Svg='' />
-                            </div>
-                        )
-                    }
-                </div>
+                {isErroSemCamera === true && (
+                    <div className={Styles.divInfos}>
+                        <span>Parece que houve um erro ao ativar sua câmera 😥</span>
+                    </div>
+                )}
+
+                {
+                    captureVideo && modelsLoaded ? (
+                        // <div className={Styles.botaoCustom} onClick={() => closeWebcam()}>
+                        //     <Botao texto={'Desativar detector de expressões'} url={''} isNovaAba={false} Svg='' />
+                        // </div>
+                        <Fragment></Fragment>
+                    ) : (
+                        <div className={Styles.botaoCustom} onClick={() => startVideo()}>
+                            <Botao texto={'Ativar detector de expressões'} url={''} isNovaAba={false} Svg='' />
+                        </div>
+                    )
+                }
 
                 {
                     captureVideo ? (
