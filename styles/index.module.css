@@ -9,6 +9,11 @@
     flex-direction: column;
 }
 
+.divInfoConecteWebcam {
+    /* background-color: pink; */
+    text-align: center;
+}
+
 /* =-=-=-=-=-=-=-=-=-=-= Sessão do vídeo =-=-=-=-=-=-=-=-=-=-= */
 .divWebcam {
     /* background-color: red; */
@@ -28,20 +33,25 @@
 }
 
 .divInfos {
-    /* background-color: pink; */
-    height: fit-content;
+    background-image: var(--cor-principal-degrade);
+
+    border-radius: 10px;
+    /* height: fit-content; */
+    height: 100px;
     width: 100%;
 
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    /* gap: 10px; */
 }
 
 .divInfos span {
     /* background-color: pink; */
+    color: #fff;
     font-size: 2rem;
+    font-weight: 500;
+    text-shadow: -1px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
 /* =-=-=-=-=-=-=-=-=-=-= Botão =-=-=-=-=-=-=-=-=-=-= */
@@ -71,7 +81,7 @@
 }
 
 .botaoCustom button {
-    background-color: #9900F0;
+    background-image: var(--cor-principal-degrade);
     color: #fff;
     letter-spacing: 1px;
 }

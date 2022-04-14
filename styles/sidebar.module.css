@@ -75,8 +75,8 @@
     color: rgba(0, 0, 0, 0.2);
 }
 
-.side .bottom:hover a:hover {
-    color: rgba(0, 0, 0, 0.8);
+.side .bottom a:hover {
+    color: var(--cor-principal);
 }
 
 /* =-=-=-=-=-=-=-=-=-=-=-=- Media queries =-=-=-=-=-=-=-=-=-=-=-=- */

@@ -61,29 +61,34 @@ export default function Index() {
         setInterval(async () => {
             if (canvasRef && canvasRef.current) {
                 canvasRef.current.innerHTML = faceapi.createCanvasFromMedia(videoRef.current);
-                const displaySize = { width: videoWidth, height: videoHeight}
+                const displaySize = { width: videoWidth, height: videoHeight }
 
                 faceapi.matchDimensions(canvasRef.current, displaySize);
                 // const detections = await faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions();
-                const detections = await faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions().withAgeAndGender();
+                // const detections = await faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions().withAgeAndGender();
+                const detections = await faceapi.detectSingleFace(videoRef.current, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions().withAgeAndGender();
                 // console.log(detections);
 
                 // Pegar e setar mensagem de gênero e idade, e expressão atual;
-                getGeneroIdade(detections[0]);
-                getExpressao(detections[0]?.expressions, detections[0]?.gender);
+                // getGeneroIdade(detections[0]);
+                // getExpressao(detections[0]?.expressions, detections[0]?.gender);
+                getGeneroIdade(detections);
+                getExpressao(detections?.expressions, detections?.gender);
 
-                const resizedDetections = faceapi.resizeResults(detections, displaySize);
-                canvasRef && canvasRef.current && canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
-                canvasRef && canvasRef.current && faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
-                // canvasRef && canvasRef.current && faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
-                // canvasRef && canvasRef.current && faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections);
-                // canvasRef && (
-                //     resizedDetections.forEach(detection => {
-                //         const box = detection.detection.box
-                //         const drawBox = new faceapi.draw.DrawBox(box, { label: Math.round(detection.age) + " year old " + detection.gender })
-                //         drawBox.draw(canvasRef.current);
-                //     })
-                // );
+                if (detections) {
+                    const resizedDetections = faceapi.resizeResults(detections, displaySize);
+                    canvasRef && canvasRef.current && canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
+                    canvasRef && canvasRef.current && faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
+                    // canvasRef && canvasRef.current && faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
+                    // canvasRef && canvasRef.current && faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections);
+                    // canvasRef && (
+                    //     resizedDetections.forEach(detection => {
+                    //         const box = detection.detection.box
+                    //         const drawBox = new faceapi.draw.DrawBox(box, { label: Math.round(detection.age) + " year old " + detection.gender })
+                    //         drawBox.draw(canvasRef.current);
+                    //     })
+                    // );
+                }
             }
         }, 1000)
     }
@@ -186,9 +191,10 @@ export default function Index() {
             <div>
                 {
                     captureVideo && modelsLoaded ? (
-                        <div className={Styles.botaoCustom} onClick={() => closeWebcam()}>
-                            <Botao texto={'Desativar detector de expressões'} url={''} isNovaAba={false} Svg='' />
-                        </div>
+                        // <div className={Styles.botaoCustom} onClick={() => closeWebcam()}>
+                        //     <Botao texto={'Desativar detector de expressões'} url={''} isNovaAba={false} Svg='' />
+                        // </div>
+                        <Fragment></Fragment>
                     ) : (
                         <div className={Styles.botaoCustom} onClick={() => startVideo()}>
                             <Botao texto={'Ativar detector de expressões'} url={''} isNovaAba={false} Svg='' />
@@ -206,17 +212,19 @@ export default function Index() {
                                 <canvas ref={canvasRef} />
                             </div>
 
-                            <div className={Styles.divInfos}>
-                                <span>{expressaoAtual.expre}</span>
-                                {/* <span>{expressaoAtual.pontos}</span> */}
-                                <span>{msgGeneroIdade}</span>
-                            </div>
+                            {expressaoAtual.expre && (
+                                <div className={Styles.divInfos}>
+                                    <span>{expressaoAtual.expre}</span>
+                                    {/* <span>{expressaoAtual.pontos}</span> */}
+                                    <span>{msgGeneroIdade}</span>
+                                </div>
+                            )}
                         </section>
                     )
                 ) : (
-                    <Fragment>
-                        <h1>Conecte sua webcam e clique no botão acima para iniciar {emoji}</h1>
-                    </Fragment>
+                    <div className={Styles.divInfoConecteWebcam}>
+                        <h1>Conecte sua webcam e<br />clique no botão acima para iniciar {emoji}</h1>
+                    </div>
                 )
             }
         </section>

@@ -1,11 +1,13 @@
-import Sidebar from '../components/outros/sidebar'
-import '../styles/globals.css'
+import React from 'react';
+import Sidebar from '../components/outros/sidebar';
+import '../fonts/GTWalsheim.css';
+import '../styles/globals.css';
 
 export default function App({ Component, pageProps }) {
     return (
-        <section className='main semHighlight'>
+        <main className='semHighlight'>
             <Sidebar />
             <Component {...pageProps} />
-        </section>
+        </main>
     )
 }
