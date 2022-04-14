@@ -58,6 +58,7 @@ export default function Index() {
             })
             .catch(err => {
                 setIsErroSemCamera(true);
+                NProgress.done();
                 console.error('Houve um erro:', err);
             });
     }
@@ -229,8 +230,8 @@ export default function Index() {
 
             <section className={`${Styles.container} ${Styles.transicaoBackground}`} style={{ backgroundColor: backgrounds[backgroundAtual] }}>
                 {isErroSemCamera === true && (
-                    <div className={Styles.divInfos}>
-                        <span>Parece que houve um erro ao ativar sua câmera 😥</span>
+                    <div className={`${Styles.divInfos} ${Styles.centralizar}`}>
+                        <span>Parece que houve um erro com sua câmera 😥</span>
                     </div>
                 )}
 
