@@ -10,15 +10,13 @@
 }
 
 /* =-=-=-=-=-=-=-=-=-=-= Sessão do vídeo =-=-=-=-=-=-=-=-=-=-= */
-.sessaoWebcam {
-    background-color: pink;
-    margin-top: 1rem;
-}
-
-.divWebcam{
+.divWebcam {
     /* background-color: red; */
     display: flex;
     justify-content: center;
+
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .sessaoWebcam video {
@@ -27,6 +25,23 @@
 
 .sessaoWebcam canvas {
     position: absolute;
+}
+
+.divInfos {
+    /* background-color: pink; */
+    height: fit-content;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* gap: 10px; */
+}
+
+.divInfos span {
+    /* background-color: pink; */
+    font-size: 2rem;
 }
 
 /* =-=-=-=-=-=-=-=-=-=-= Botão =-=-=-=-=-=-=-=-=-=-= */

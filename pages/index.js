@@ -16,13 +16,11 @@ export default function Index() {
         setEmoji(EmojiAleatorio());
     }, []);
 
-
     const [modelsLoaded, setModelsLoaded] = useState(false);
     const [captureVideo, setCaptureVideo] = useState(false);
 
-    const [genero, setGenero] = useState(null);
-    const [idade, setIdade] = useState(null);
-    const [expressaoAtual, setExpressaoAtual] = useState(null);
+    const [msgGeneroIdade, setMsgGeneroIdade] = useState(null);
+    const [expressaoAtual, setExpressaoAtual] = useState({});
 
     const videoRef = useRef();
     const videoHeight = 480;
@@ -63,24 +61,18 @@ export default function Index() {
         setInterval(async () => {
             if (canvasRef && canvasRef.current) {
                 canvasRef.current.innerHTML = faceapi.createCanvasFromMedia(videoRef.current);
-                const displaySize = {
-                    width: videoWidth,
-                    height: videoHeight
-                }
+                const displaySize = { width: videoWidth, height: videoHeight}
 
                 faceapi.matchDimensions(canvasRef.current, displaySize);
-
                 // const detections = await faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions();
-                // const detections = await faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions();
                 const detections = await faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions().withAgeAndGender();
                 // console.log(detections);
 
-                setGenero(detections[0]?.gender);
-                setIdade(detections[0]?.age);
-                getMaiorExpressao(detections[0]?.expressions);
+                // Pegar e setar mensagem de gênero e idade, e expressão atual;
+                getGeneroIdade(detections[0]);
+                getExpressao(detections[0]?.expressions, detections[0]?.gender);
 
                 const resizedDetections = faceapi.resizeResults(detections, displaySize);
-
                 canvasRef && canvasRef.current && canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
                 canvasRef && canvasRef.current && faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
                 // canvasRef && canvasRef.current && faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
@@ -102,12 +94,48 @@ export default function Index() {
         setCaptureVideo(false);
     }
 
-    function getMaiorExpressao(data) {
+    function getGeneroIdade(data) {
+        // console.log(data);
+        let isHomem = null;
+        if (data?.gender === 'female') {
+            isHomem = false;
+        } else if (data?.gender === 'male') {
+            isHomem = true;
+        }
+
+        let msg = '';
+        if (isHomem) {
+            if (data.age <= 4) {
+                msg = (isHomem ? 'um bebê' : 'uma bebê');
+            } else if (data.age > 4 && data.age < 12) {
+                msg = (isHomem ? 'um menininho, criança' : 'uma menininha, criança');
+            } else if (data.age > 12 && data.age < 18) {
+                msg = (isHomem ? 'um menino' : 'um menina');
+            } else if (data.age > 18 && data.age < 28) {
+                msg = (isHomem ? 'um jovem adulto' : 'um jovem adulta');
+            } else if (data.age > 28 && data.age < 55) {
+                msg = (isHomem ? 'um adulto' : 'um adulta');
+            } else if (data.age > 55) {
+                msg = (isHomem ? 'um senhor de idade' : 'uma senhora de idade');
+            }
+
+            msg = `Você é ${msg}`;
+        }
+
+        setMsgGeneroIdade(msg);
+    }
+
+    function getExpressao(data, genero) {
         // console.log(data);
 
+        // Definir genero;
+        const isHomem = (genero === 'female' ? false : true);
+
+        // setAea(data);
+
+        // Definir expressão com mais pontos;
         let maxProp = null;
         let maxValue = -1;
-
         for (var prop in data) {
             if (data.hasOwnProperty(prop)) {
                 var value = data[prop]
@@ -118,36 +146,39 @@ export default function Index() {
             }
         }
 
-        // console.log(maxProp);
-        // return maxProp;
-
-        // Ajustar;
-        let expressao = 'Sem expressão definida';
-        expressao = '❓';
+        // Ajustar expressão;
+        let expressao = 'Sem expressão definida 👻';
         if (maxProp === 'angry') {
-            expressao = 'Nervoso';
-            expressao = '😡';
+            expressao = (isHomem ? 'Está nervoso 😡' : 'Está nervosa 😡');
         } else if (maxProp === 'disgusted') {
-            expressao = 'Com nojo';
-            expressao = '🤮';
+            expressao = 'Está com nojo 🤮';
         } else if (maxProp === 'fearful') {
-            expressao = 'Com medo';
-            expressao = '😨';
+            expressao = 'Está com medo 😨';
         } else if (maxProp === 'happy') {
-            expressao = 'Feliz';
-            expressao = '😀';
+            expressao = 'Está feliz 😀';
         } else if (maxProp === 'neutral') {
-            expressao = 'Neutro';
-            expressao = '😐';
+            expressao = (isHomem ? 'Está neutro 😐' : 'Está neutra 😐');
         } else if (maxProp === 'sad') {
-            expressao = 'Triste';
-            expressao = '😞';
+            expressao = 'Está triste 😞';
         } else if (maxProp === 'surprised') {
-            expressao = 'Surpreso';
-            expressao = '😯';
+            expressao = (isHomem ? 'Está surpreso 😯' : 'Está surpresa 😯');
         }
 
-        setExpressaoAtual(expressao);
+        // Se o maxValue for menor ou igual a xxx, deve-se colocar uma frase no meio;
+        if (maxValue <= 0.8 && !expressao.includes('neutro')) {
+            if (expressao.includes('Está')) {
+                expressao = expressao.replace('Está', 'Está um pouco');
+            }
+        }
+
+        // Se o maxValue for maior ou igual a xxx, deve-se colocar uma frase no meio;
+        if (maxValue >= 0.999) {
+            if (expressao.includes('Está') && !expressao.includes('neutro')) {
+                expressao = expressao.replace('Está', 'Está muito');
+            }
+        }
+
+        setExpressaoAtual({ expre: expressao, pontos: maxValue });
     }
 
     return (
@@ -172,12 +203,14 @@ export default function Index() {
                         <section className={Styles.sessaoWebcam}>
                             <div className={Styles.divWebcam}>
                                 <video ref={videoRef} height={videoHeight} width={videoWidth} onPlay={handleVideoOnPlay} />
-                                <canvas ref={canvasRef} style={{ position: 'absolute' }} />
+                                <canvas ref={canvasRef} />
                             </div>
 
-                            <h1>{genero}</h1>
-                            <h1>{idade}</h1>
-                            <h1>{expressaoAtual}</h1>
+                            <div className={Styles.divInfos}>
+                                <span>{expressaoAtual.expre}</span>
+                                {/* <span>{expressaoAtual.pontos}</span> */}
+                                <span>{msgGeneroIdade}</span>
+                            </div>
                         </section>
                     )
                 ) : (
