@@ -10,7 +10,7 @@ Projeto iniciado em 13/04/2022.
 Projeto divertido. Não foi nada complexo em termos de front-end ou necessidade de criatividade. Talvez a parte mais complicada foi a utilização da API face-api.js no contexto necessário.
 
 ## Habilidades
-React.js, Next.js, HTML, CSS, face-api
+React.js, Next.js, HTML, CSS, face-api.
 
 
 ## Publicação
